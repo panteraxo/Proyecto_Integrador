@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Autenticación de Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <!-- Espacio superior -->
+    <div class="row mt-5"></div>
+
+    <div class="row">
+
+        <center>
+            <div class="col-md-6 offset-md-3 text-center">
+                <!-- Efecto circular -->
+                <div style="width: 220px; height: 220px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 4px solid #007bff;">
+                    <!-- Icono de usuario -->
+                    <img src="https://cdn-icons-png.flaticon.com/512/1177/1177568.png" alt="Icono de usuario"  style="width: 100%" >
+                </div>
+            </div>
+        </center>
+    </div>
+
+    <!-- Formulario de inicio de sesión -->
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <!-- Mensajes de error o éxito -->
+            <div th:if="${error}">
+                <div class="alert alert-danger text-center">Usuario o contraseña inválidos</div>
+            </div>
+            <div th:if="${logout}">
+                <div class="alert alert-success text-center">Tu sesión ha finalizado con éxito</div>
+            </div>
+
+            <div class="card shadow">
+                <div class="card-header">
+                    <h2 class="text-center mb-0">Autenticación de Usuario</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" th:action="@{/login}" class="form-horizontal">
+                        <div class="form-group mb-3">
+                            <label for="nombreUsuario" class="form-label">Usuario</label>
+                            <input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control" placeholder="Ingrese el usuario" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="contrasena" class="form-label">Contraseña</label>
+                            <input type="password" id="contrasena" name="contrasena" class="form-control" placeholder="Ingrese la contraseña" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Pie de página -->
+            <p class="text-center text-muted">
+                © 2024 Grupo1
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts de Bootstrap -->
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
+

@@ -18,7 +18,7 @@ public class LoginController {
 
     private final UsuarioService usuarioService;
 
-    @GetMapping(value = "/login")
+    @GetMapping(value = "/")
     public String mostrarLoginForm() {
         return "login";
     }

@@ -1,6 +1,7 @@
 package com.proyecto.integrador.controller;
 
 import com.proyecto.integrador.model.Vendedor;
+import com.proyecto.integrador.service.SucursalService;
 import com.proyecto.integrador.service.VendedorService;
 import jakarta.persistence.EntityManager;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,6 +27,8 @@ import java.util.Map;
 public class VendedorController {
     private final VendedorService vendedorService;
     private final EntityManager entityManager;
+    SucursalService sucursalService;
+
     @GetMapping("/listarVendedores")
     public String verPaginaInicio(Model model) {
         model.addAttribute("listaVendedores", vendedorService.listarVendedor());
@@ -34,6 +37,7 @@ public class VendedorController {
     }
     @GetMapping("/nuevoVendedor")
     public String nuevoVendedor(Model model) {
+        model.addAttribute("listaSucursales", sucursalService.listarSucursal());
         model.addAttribute("vendedor", new Vendedor());
         return "vendedores/nuevoVendedor";
     }
@@ -46,6 +50,7 @@ public class VendedorController {
 
     @GetMapping("/actualizarVendedor/{id}")
     public String actualizarVendedor(@PathVariable("id") Integer id,Model model ) {
+        model.addAttribute("listaSucursales", sucursalService.listarSucursal());
         model.addAttribute("vendedor", vendedorService.obtenerVendedorPorId(id));
         return "vendedores/actualizarVendedor";
     }

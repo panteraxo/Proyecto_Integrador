@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,8 +26,8 @@ import java.util.Map;
 @RequestMapping("/vendedores")
 @AllArgsConstructor
 public class VendedorController {
-    private final VendedorService vendedorService;
-    private final EntityManager entityManager;
+    VendedorService vendedorService;
+    EntityManager entityManager;
     SucursalService sucursalService;
 
     @GetMapping("/listarVendedores")
@@ -50,8 +51,14 @@ public class VendedorController {
 
     @GetMapping("/actualizarVendedor/{id}")
     public String actualizarVendedor(@PathVariable("id") Integer id,Model model ) {
+        /*model.addAttribute("vendedor", vendedorService.obtenerVendedorPorId(id));*/
+
+        Vendedor vendedor = vendedorService.obtenerVendedorPorId(id);
+        vendedor.setSucursal(vendedor.getSucursal());
+        model.addAttribute("vendedor", vendedor);
+
         model.addAttribute("listaSucursales", sucursalService.listarSucursal());
-        model.addAttribute("vendedor", vendedorService.obtenerVendedorPorId(id));
+
         return "vendedores/actualizarVendedor";
     }
 
@@ -60,6 +67,7 @@ public class VendedorController {
         vendedorService.eliminarVendedor(id);
         return "redirect:/vendedores/listarVendedores";
     }
+
     @GetMapping("reporteVendedores")
     public void reporteVendedores(HttpServletResponse response) throws JRException, SQLException, IOException {
         // Obtén la conexión JDBC desde el EntityManager

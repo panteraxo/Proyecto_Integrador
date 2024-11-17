@@ -36,8 +36,14 @@
                 <input type="text" id="salario" th:field="*{salario}" placeholder="Salario" class="form-control mb-4 col-4">
 
                 <label for="sucursal">Sucursal</label>
-                <input type="text" id="sucursal" th:field="*{sucursal}" placeholder="Sucursal" class="form-control mb-4 col-4">
+                <select id="sucursal" th:field="*{sucursal}" class="form-control mb-4 col-4">
+                    <option value="">Seleccione Sucursal</option>
+                    <option th:each="sucursal : ${listaSucursales}" th:value="${sucursal.idSucursal}" th:text="${sucursal.nombreSucursal}"></option>
+                </select>
 
+                <!--<label for="sucursal">Sucursal</label>
+                <input type="text" id="sucursal" th:field="*{sucursal}" placeholder="Sucursal" class="form-control mb-4 col-4">
+-->
                 <!-- Se Agrega campos para el nombre de usuario y la contraseña -->
 
                 <hr>

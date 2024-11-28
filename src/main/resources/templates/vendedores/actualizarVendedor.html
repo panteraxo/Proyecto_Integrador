@@ -16,27 +16,30 @@
     <h2> Nuevo Vendedor</h2>
     <div class="row justify-content-left">
         <div class="col-md-6">
-            <form action="#" th:action="@{/vendedores/guardarVendedor}"  th:object="${vendedor}" method="post" >
+            <form action="#" th:action="@{/vendedores/guardarVendedor}"  th:object="${vendedor}" method="post" class="needs-validation" novalidate>
+
+                <input type="hidden" th:field="*{idVendedor}" readonly>
+
                 <label for="nombres">Nombres</label>
-                <input type="text" id="nombres" th:field="*{nombre}" placeholder="Nombres Vendedor" class="form-control mb-4 col-4">
+                <input type="text" id="nombres" th:field="*{nombre}" placeholder="Nombres Vendedor" class="form-control mb-4 col-4" required>
 
                 <label for="apellidos">Apellidos</label>
-                <input type="text" id="apellidos" th:field="*{apellido}" placeholder="Apellidos Vendedor" class="form-control mb-4 col-4">
+                <input type="text" id="apellidos" th:field="*{apellido}" placeholder="Apellidos Vendedor" class="form-control mb-4 col-4" required>
 
                 <label for="correo">Correo</label>
-                <input type="email" id="correo" th:field="*{email}" placeholder="Email" class="form-control mb-4 col-4">
+                <input type="email" id="correo" th:field="*{email}" placeholder="Email" class="form-control mb-4 col-4" required>
 
                 <label for="telefono">Telefono</label>
-                <input type="text" id="telefono" th:field="*{telefono}" placeholder="Telefono" class="form-control mb-4 col-4">
+                <input type="text" id="telefono" th:field="*{telefono}" placeholder="Telefono" class="form-control mb-4 col-4" required>
 
                 <label for="direccion">Direccion</label>
-                <input type="text" id="direccion" th:field="*{direccion}" placeholder="Dirección" class="form-control mb-4 col-4">
+                <input type="text" id="direccion" th:field="*{direccion}" placeholder="Dirección" class="form-control mb-4 col-4" required>
 
                 <label for="salario">Salario</label>
-                <input type="text" id="salario" th:field="*{salario}" placeholder="Salario" class="form-control mb-4 col-4">
+                <input type="text" id="salario" th:field="*{salario}" placeholder="Salario" class="form-control mb-4 col-4" required>
 
                 <label for="sucursal">Sucursal</label>
-                <select id="sucursal" th:field="*{sucursal}" class="form-control mb-4 col-4">
+                <select id="sucursal" th:field="*{sucursal}" class="form-control mb-4 col-4" required>
                     <option value="">Seleccione Sucursal</option>
                     <option th:each="sucursal : ${listaSucursales}" th:value="${sucursal.idSucursal}" th:text="${sucursal.nombreSucursal}"></option>
                 </select>
@@ -48,5 +51,26 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    // Ejemplo con JavaScript
+    const forms = document.querySelectorAll('.needs-validation')
+
+    Array.from(forms)
+        .forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity())
+                {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+
+            }, false)
+        })
+</script>
+
 </body>
 </html>

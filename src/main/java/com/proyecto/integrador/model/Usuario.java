@@ -20,7 +20,5 @@ public class Usuario {
     @Column(name = "contrasena")
     private String contrasena;
 
-    @OneToOne
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
-    private Cliente cliente;
+   
 }

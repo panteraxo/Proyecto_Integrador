@@ -38,6 +38,6 @@ public class Vendedor {
     private BigDecimal salario;
 
     @ManyToOne
-    @JoinColumn(name = "id_sucursal")
+    @JoinColumn(name = "id_sucursal", nullable = false, foreignKey = @ForeignKey(name = "FK_vendedor_sucursal"))
     private Sucursal sucursal;
 }

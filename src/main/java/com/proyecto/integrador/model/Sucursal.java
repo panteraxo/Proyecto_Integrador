@@ -31,7 +31,4 @@ public class Sucursal {
 
     @Column(name="pais",length = 100, nullable = false)
     private String Pais;
-
-    @ManyToOne
-    private Vendedor vendedor;
 }

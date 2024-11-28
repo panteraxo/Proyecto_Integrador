@@ -41,5 +41,6 @@ public class LoginController {
     public String cerrarSesion(HttpSession session) {
         session.invalidate();
         return "redirect:/";
+
     }
 }

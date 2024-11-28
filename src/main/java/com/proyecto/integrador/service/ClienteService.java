@@ -2,13 +2,15 @@ package com.proyecto.integrador.service;
 
 
 
-import java.util.Optional;
+import java.util.List;
 
 import com.proyecto.integrador.model.Cliente;
-import com.proyecto.integrador.model.Usuario;
 
 public interface ClienteService {
-    Optional<Cliente> obtenerClientePorUsuario(Usuario usuario); 
-    void actualizarCliente(Cliente cliente);
-    void eliminarClientePorUsuarioId(Integer usuarioId);
+    /* Optional<Cliente> obtenerClientePorUsuario(Usuario usuario); no tiene uso*/
+    List<Cliente> listarCliente();
+    void guardarCliente(Cliente cliente);
+    Cliente obtenerClientePorId(Integer id);
+    void eliminarClientePorId(Integer id);
+    /* void eliminarClientePorUsuarioId(Integer usuarioId); no tiene uso*/
 }

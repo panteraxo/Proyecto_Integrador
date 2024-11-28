@@ -35,6 +35,5 @@ public class Cliente {
     @Column(name = "dni")
     private String dni;
 
-    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Usuario usuario;
+    
 }

@@ -3,13 +3,11 @@ package com.proyecto.integrador.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.proyecto.integrador.model.Cliente;
-import com.proyecto.integrador.model.Usuario;
 import com.proyecto.integrador.repository.ClienteRepository;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,19 +15,40 @@ public class ClienteServiceImpl implements ClienteService {
 
     private final ClienteRepository clienteRepository;
 
-    @Override
+    /* @Override
     @Transactional(readOnly = true)
     public Optional<Cliente> obtenerClientePorUsuario(Usuario usuario) {
         return clienteRepository.findByUsuario(usuario);
-    }
+    } */
+
+
+    /* @Override
+    public void eliminarClientePorUsuarioId(Integer usuarioId) {
+        clienteRepository.deleteById(usuarioId);
+    } */
 
     @Override
-    public void actualizarCliente(Cliente cliente) {
+    public void guardarCliente(Cliente cliente) {
         clienteRepository.save(cliente);
     }
 
     @Override
-    public void eliminarClientePorUsuarioId(Integer usuarioId) {
-        clienteRepository.deleteById(usuarioId);
+    public List<Cliente> listarCliente() {
+        return clienteRepository.findAll();
+    }
+
+    @Override
+    public Cliente obtenerClientePorId(Integer id) {
+        return clienteRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("No se encontro el cliente con id: " + id));
+    }
+
+    @Override
+    public void eliminarClientePorId(Integer id) {
+        if(clienteRepository.existsById(id)) {
+            clienteRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("No se encontro el cliente con id: " + id);
+        }
     }
 }

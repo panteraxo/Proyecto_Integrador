@@ -1,24 +1,34 @@
 package com.proyecto.integrador.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
 
 @Entity
-@Table(name = "tb_usuario")
+@Table(name="tb_usuario")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "codigo")
 public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
-    private Integer idUsuario;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "cod_usu")
+	private int codigo;
 
-    @Column(name = "nombre_Usuario")
-    private String nombreUsuario;
+	@Column(unique = true)
+	private String login;
+	@Column(name = "password")
+	private String clave;
+	private String nombre;
+	private String apellido;
+	
+	@ManyToOne
+	@JoinColumn(name="idrol")
+	private Rol rol;
 
-    @Column(name = "contrasena")
-    private String contrasena;
 
-   
+	
+	
 }

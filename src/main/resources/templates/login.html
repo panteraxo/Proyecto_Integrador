@@ -20,7 +20,8 @@
             <button class="sign-up-btn">Iniciar Sesión</button>
         </div>
     </div>
-    <form class="formulario" id="registerForm" th:action="@{/registro}" method="post">
+    
+    <form class="formulario" id="registerForm" th:action="@{/login/registro}" th:object="${usuario}" method="post">
         <h2 class="create-account">Crear una cuenta</h2>
         <div class="iconos">
             <div class="border-icon">
@@ -34,14 +35,21 @@
             </div>
         </div>
         <p class="cuenta-gratis">Crear una cuenta gratis</p>
+        <div th:if="${mensaje}" class="alert alert-danger">
+        <p th:text="${mensaje}"></p>
+    </div>
         <input type="text" placeholder="Nombre" id="nombreUsuarioRegister" name="nombreUsuario" required>
-        <input type="email" placeholder="Email" id="correoElectronico" name="correoElectronico" required>
         <input type="password" placeholder="Contraseña" id="contrasenaRegister" name="contrasena" required>
+        <input name="rol" value="usuario" type="hidden">
+        
         <input type="button" value="Registrarse" id="registerBtn">
     </form>
+    
 </div>
 <div class="container-form sign-in">
+
     <form class="formulario" id="loginForm" th:action="@{/}" method="post">
+
         <h2 class="create-account">Iniciar Sesión</h2>
         <p class="cuenta-gratis">¿Aún no tienes una cuenta?</p>
         <input type="text" id="username" name="username" class="form-control" placeholder="Ingrese el usuario" required>

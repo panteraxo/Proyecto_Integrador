@@ -30,6 +30,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     public List<Usuario> listarUsuario() {
         return usuarioRepository.findAll();
     }
+    @Override
+    public boolean obtenerUsuarioPorNombre(String nombreUsuario) {
+        return usuarioRepository.findByNombreUsuario(nombreUsuario).isPresent();
+    }
 
     @Override
     public void guardarUsuario(Usuario usuario) {

@@ -47,12 +47,13 @@
     
 </div>
 <div class="container-form sign-in">
-    
-    <form class="formulario" id="loginForm" th:action="@{/login}" method="post">
+
+    <form class="formulario" id="loginForm" th:action="@{/}" method="post">
+
         <h2 class="create-account">Iniciar Sesión</h2>
         <p class="cuenta-gratis">¿Aún no tienes una cuenta?</p>
-        <input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control" placeholder="Ingrese el usuario" required>
-        <input type="password" id="contrasena" name="contrasena" class="form-control" placeholder="Ingrese la contraseña" required>
+        <input type="text" id="username" name="username" class="form-control" placeholder="Ingrese el usuario" required>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Ingrese la contraseña" required>
         <input type="button" value="Iniciar Sesión" id="signinBtn">
     </form>
     <div class="welcome-back">
@@ -81,21 +82,21 @@
 
         $("#loginForm").validate({
             rules: {
-                correo: {
+                username: {
                     required: true,
                     email: true
                 },
-                contrasena: {
+                password: {
                     required: true,
                     minlength: 6
                 }
             },
             messages: {
-                correo: {
+                username: {
                     required: "Por favor, ingrese un correo electrónico",
                     email: "Por favor, ingrese un correo electrónico válido"
                 },
-                contrasena: {
+                password: {
                     required: "Por favor, ingrese una contraseña",
                     minlength: "La contraseña debe tener al menos 6 caracteres"
                 }

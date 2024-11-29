@@ -20,5 +20,8 @@ public class Usuario {
     @Column(name = "contrasena")
     private String contrasena;
 
+    @Column(name = "rol")
+    private String rol;
+    
    
 }

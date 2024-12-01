@@ -30,9 +30,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     public List<Usuario> listarUsuario() {
         return usuarioRepository.findAll();
     }
+
     @Override
-    public boolean obtenerUsuarioPorNombre(String nombreUsuario) {
-        return usuarioRepository.findByNombreUsuario(nombreUsuario).isPresent();
+    public boolean obtenerUsuarioPorNombre(String username) {
+        return usuarioRepository.findByLogin(username).isPresent();
     }
 
     @Override

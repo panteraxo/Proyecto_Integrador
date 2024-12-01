@@ -21,7 +21,7 @@ public class RegistrarController {
     
     @PostMapping("login/registro")
     public String registrarUsuario(@ModelAttribute Usuario usuario,Model model) {
-        if(usuarioService.obtenerUsuarioPorNombre(usuario.getNombreUsuario())) {
+        if(usuarioService.obtenerUsuarioPorNombre(usuario.getLogin())) {
             model.addAttribute("mensaje", "El usuario ya existe");
             return "login";
         }

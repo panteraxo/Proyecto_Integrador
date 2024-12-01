@@ -9,8 +9,11 @@ public interface UsuarioService {
 
     Usuario validarSesion(String vLogin);
     List<Enlace> enlacesDelUsuario(int codRol);;
-    Usuario obtenerUsuario(String nombreUsuario, String contrasena);
-    boolean obtenerUsuarioPorNombre(String nombreUsuario);
+
+    /*Usuario obtenerUsuario(String nombreUsuario, String contrasena);*/
+
+    boolean obtenerUsuarioPorNombre(String username);
+
     List<Usuario> listarUsuario();
     void guardarUsuario(Usuario usuario);
     Usuario obtenerUsuarioPorId(Integer id);

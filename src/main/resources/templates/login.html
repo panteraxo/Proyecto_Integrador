@@ -38,8 +38,8 @@
         <div th:if="${mensaje}" class="alert alert-danger">
         <p th:text="${mensaje}"></p>
     </div>
-        <input type="text" placeholder="Nombre" id="nombreUsuarioRegister" name="nombreUsuario" required>
-        <input type="password" placeholder="Contraseña" id="contrasenaRegister" name="contrasena" required>
+        <input type="text" placeholder="Nombre" id="nombreUsuarioRegister" name="username" required>
+        <input type="password" placeholder="Contraseña" id="contrasenaRegister" name="password" required>
         <input name="rol" value="usuario" type="hidden">
         
         <input type="button" value="Registrarse" id="registerBtn">

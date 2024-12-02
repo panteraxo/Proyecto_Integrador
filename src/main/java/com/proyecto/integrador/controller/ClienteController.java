@@ -32,7 +32,7 @@ public class ClienteController {
 
     @GetMapping("/listarClientes")
     public String listarClientes(Model model,HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute("datosUsuario");
         if (usuario == null) {
             return "redirect:/";
         }
@@ -63,7 +63,7 @@ public class ClienteController {
     
     @PostMapping("/guardarDatos")
     public String guardarDatosPersonales(@ModelAttribute("cliente") Cliente cliente, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute("datosUsuario");
         if (usuario == null) {
             return "redirect:/";
         }

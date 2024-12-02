@@ -9,14 +9,19 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-    Usuario findByNombreUsuarioAndContrasena(String nombreUsuario, String contrasena);
-    Optional<Usuario> findByNombreUsuario(String nombreUsuario);
+    /*Usuario findByNombreUsuarioAndContrasena(String nombreUsuario, String contrasena);*/
+
+
+    /*Optional<Usuario> findByNombreUsuario(String username);*/
+	Optional<Usuario> findByLogin(String username);
+
 //select *from tb_usuario where login='aaa' and password='bb'
 	@Query("select u from Usuario u where u.login=?1")
 	public Usuario iniciarSesion(String login);

@@ -18,6 +18,8 @@ public class Vendedor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_vendedor")
     private Integer idVendedor;
+    @Column(name="codigo",length = 50, nullable = false)
+    private String codigo;
 
     @Column(name="nombreVendedor",length = 50, nullable = false)
     private String nombre;

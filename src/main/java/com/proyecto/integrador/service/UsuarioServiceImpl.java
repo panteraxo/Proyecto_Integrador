@@ -44,7 +44,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario obtenerUsuarioPorId(Integer id) {
         return usuarioRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("No se encontro el sucursal con id: " + id));
+                .orElseThrow(()-> new RuntimeException("No se encontro el usuario con id: " + id));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if(usuarioRepository.existsById(id)) {
             usuarioRepository.deleteById(id);
         } else {
-            throw new RuntimeException("No se encontro el sucursal con id: " + id);
+            throw new RuntimeException("No se encontro el usuario con id: " + id);
         }
     }
 }

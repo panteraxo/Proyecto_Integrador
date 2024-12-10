@@ -47,6 +47,11 @@ public class VendedorController {
         vendedorService.guardarVendedor(vendedor);
         return "redirect:/vendedores/listarVendedores";
     }
+    @PostMapping("/editarVendedor")
+    public String editarVendedor(@ModelAttribute("vendedor") Vendedor vendedor) {
+        vendedorService.editVendedor(vendedor);
+        return "redirect:/vendedores/listarVendedores";
+    }
 
     @GetMapping("/actualizarVendedor/{id}")
     public String actualizarVendedor(@PathVariable("id") Integer id,Model model ) {

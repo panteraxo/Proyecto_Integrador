@@ -1,8 +1,12 @@
 package com.proyecto.integrador.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 @Entity
 @Table(name="tb_rol_enlace")
+@Getter
+@Setter
 public class RolEnlace {
 	
 	@EmbeddedId
@@ -16,38 +20,6 @@ public class RolEnlace {
 	@ManyToOne
 	@JoinColumn(name="idenlace",insertable = false,updatable = false,referencedColumnName = "idenlace")
 	private Enlace enlace;
-
-
-	
-
-	public Rol getRol() {
-		return rol;
-	}
-
-
-	public void setRol(Rol rol) {
-		this.rol = rol;
-	}
-
-
-	public Enlace getEnlace() {
-		return enlace;
-	}
-
-
-	public void setEnlace(Enlace enlace) {
-		this.enlace = enlace;
-	}
-
-
-	public RolEnlacePK getId() {
-		return id;
-	}
-
-
-	public void setId(RolEnlacePK id) {
-		this.id = id;
-	}
 	
 	
 	

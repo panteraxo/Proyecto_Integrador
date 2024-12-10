@@ -6,8 +6,6 @@ import com.proyecto.integrador.service.ClienteService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,13 +29,8 @@ public class ClienteController {
     } */
 
     @GetMapping("/listarClientes")
-    public String listarClientes(Model model,HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("datosUsuario");
-        if (usuario == null) {
-            return "redirect:/";
-        }
-        List<Cliente> listaClientes = clienteService.listarCliente();
-        model.addAttribute("listaClientes", listaClientes);
+    public String listarClientes(Model model) {
+        model.addAttribute("listaClientes", clienteService.listarCliente());
         return "clientes/clientes";
     }
     @GetMapping("/actualizarCliente/{id}")

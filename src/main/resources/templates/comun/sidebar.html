@@ -1,0 +1,49 @@
+<aside id="sidebar">
+    <div class="d-flex">
+        <button class="toggle-btn" type="button">
+            <i class="lni lni-dashboard-square-1"></i>
+        </button>
+        <div class="sidebar-logo">
+            <a th:href="@{/bienvenida}">Gr1</a>
+        </div>
+    </div>
+    <ul class="sidebar-nav">
+        <li class="sidebar-item">
+            <a th:href="@{/sucursales/listarSucursales}" class="sidebar-link">
+                <i class="lni lni-buildings-1"></i>
+                <span>Sucursales</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a th:href="@{/asistencia/listarAsistencia}" class="sidebar-link">
+                <i class="lni lni-shield-2-check"></i>
+                <span>Asistencia</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a th:href="@{/clientes/listarClientes}" class="sidebar-link">
+                <i class="lni lni-cart-1"></i>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a th:href="@{/vendedores/listarVendedores}" class="sidebar-link">
+                <i class="lni lni-agenda"></i>
+                <span>Vendedores</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a th:href="@{/usuarios/listarUsuarios}" class="sidebar-link">
+                <i class="lni lni-user-4"></i>
+                <span>Usuarios</span>
+            </a>
+        </li>
+        
+    </ul>
+    <div class="sidebar-footer">
+        <a th:href="@{/logout}" class="sidebar-link">
+            <i class="lni lni-exit"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</aside>

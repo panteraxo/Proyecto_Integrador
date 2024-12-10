@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.proyecto.integrador.model.Usuario;
+import com.proyecto.integrador.service.RolService;
 import com.proyecto.integrador.service.UsuarioService;
 
 import jakarta.persistence.EntityManager;
@@ -37,6 +38,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 public class UsuarioController {
     private final UsuarioService usuarioService;
     private final EntityManager entityManager;
+    private final RolService rolService;
     
     @GetMapping("/listarUsuarios")
     public String verPaginaInicio(Model model) {
@@ -47,7 +49,9 @@ public class UsuarioController {
 
     @GetMapping("/nuevoUsuario")
     public String nuevoUsuario(Model model) {
+        model.addAttribute("listaRoles", rolService.listarRol());
         model.addAttribute("usuario", new Usuario());
+        
         return "usuarios/nuevoUsuario";
     }
 

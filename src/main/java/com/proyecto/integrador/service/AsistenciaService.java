@@ -10,4 +10,5 @@ public interface AsistenciaService {
     
     List<Asistencia> listarAsistencia();
     String registrarAsistencia(String codigo,String tipo);
+    long calcularHorasTotales(int idVendedor, int mes, int anio);
 }

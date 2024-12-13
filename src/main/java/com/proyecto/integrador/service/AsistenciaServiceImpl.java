@@ -10,6 +10,7 @@ import com.proyecto.integrador.repository.AsistenciaRepository;
 import com.proyecto.integrador.repository.VendedorRepository;
 import com.proyecto.integrador.security.VendedorNotFoundException;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -65,5 +66,20 @@ public class AsistenciaServiceImpl implements AsistenciaService {
         return "Registro exitoso.";
 
 }
+
+    @Override
+    public long calcularHorasTotales(int idVendedor, int mes, int anio) {
+        List<Asistencia> asistencias = asistenciaRepository.findByVendedorAndMes(idVendedor, mes, anio);
+        long totalHoras = 0;
+
+        for (Asistencia asistencia : asistencias) {
+            if (asistencia.getHoraEntrada() != null && asistencia.getHoraSalida() != null) {
+                Duration duracion = Duration.between(asistencia.getHoraEntrada(), asistencia.getHoraSalida());
+                totalHoras += duracion.toHours();
+            }
+        }
+
+        return totalHoras;  
+    }
     
 }

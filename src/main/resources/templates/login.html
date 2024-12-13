@@ -20,7 +20,7 @@
     </div>
 
     
-    <form class="formulario" id="registerForm" th:action="@{/login/registro}" th:object="${usuario}" method="post">
+    <form class="formulario" id="loginForm" th:action="@{/}" th:object="${usuario}" method="post">
         <h2 class="create-account">Crear una cuenta</h2>
       <img src="/images/IconL.png" class="IconL">
 
@@ -37,8 +37,8 @@
         </div>
 
         <p class="cuenta-gratis">Ingresa tus credenciales</p>
-        <input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control" placeholder="Ingrese el usuario" required>
-        <input type="password" id="contrasena" name="contrasena" class="form-control" placeholder="Ingrese la contraseña" required>
+        <input type="text" id="username" name="username" class="form-control" placeholder="Ingrese el usuario" required>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Ingrese la contraseña" required>
 
         <input type="button" value="Iniciar Sesión" id="signinBtn">
     </form>
@@ -63,21 +63,20 @@
         $("#loginForm").validate({
             rules: {
 
-                nombreUsuario: {
+                username: {
                     required: true,
-                    email: true
                 },
-                contrasena: {
+                password: {
                     required: true,
                     minlength: 6
                 }
             },
             messages: {
-                nombreUsuario: {
+                username: {
                     required: "Por favor, ingrese un su Usuario",
                     email: "Por favor, ingrese un Usuario válido"
                 },
-                contrasena: {
+                password: {
                     required: "Por favor, ingrese una contraseña",
                     minlength: "La contraseña debe tener al menos 6 caracteres"
                 }

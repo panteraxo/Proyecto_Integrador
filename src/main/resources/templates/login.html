@@ -18,9 +18,12 @@
             <h2>Bienvenido a "NOMBREDELSISTEMA"</h2>
         </div>
     </div>
-    <form class="formulario" id="loginForm" th:action="@{/login}" method="post">
-        <h2 class="create-account">Iniciar Sesión</h2>
-        <img src="/images/IconL.png" class="IconL">
+
+    
+    <form class="formulario" id="registerForm" th:action="@{/login/registro}" th:object="${usuario}" method="post">
+        <h2 class="create-account">Crear una cuenta</h2>
+      <img src="/images/IconL.png" class="IconL">
+
         <div class="iconos">
             <div class="border-icon">
                 <i class='bx bxl-instagram'></i>
@@ -32,9 +35,11 @@
                 <i class='bx bxl-facebook-circle' ></i>
             </div>
         </div>
+
         <p class="cuenta-gratis">Ingresa tus credenciales</p>
         <input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control" placeholder="Ingrese el usuario" required>
         <input type="password" id="contrasena" name="contrasena" class="form-control" placeholder="Ingrese la contraseña" required>
+
         <input type="button" value="Iniciar Sesión" id="signinBtn">
     </form>
 </div>
@@ -57,6 +62,7 @@
 
         $("#loginForm").validate({
             rules: {
+
                 nombreUsuario: {
                     required: true,
                     email: true

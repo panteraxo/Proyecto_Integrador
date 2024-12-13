@@ -18,6 +18,8 @@ public class Vendedor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_vendedor")
     private Integer idVendedor;
+    @Column(name="codigo",length = 50, nullable = false)
+    private String codigo;
 
     @Column(name="nombreVendedor",length = 50, nullable = false)
     private String nombre;
@@ -38,6 +40,6 @@ public class Vendedor {
     private BigDecimal salario;
 
     @ManyToOne
-    @JoinColumn(name = "id_sucursal")
+    @JoinColumn(name = "id_sucursal", nullable = false, foreignKey = @ForeignKey(name = "FK_vendedor_sucursal"))
     private Sucursal sucursal;
 }

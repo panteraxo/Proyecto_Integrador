@@ -49,10 +49,10 @@ public class SucursalController {
 
     @GetMapping("/actualizarSucursal/{id}")
     public String actualizarSucursal(@PathVariable("id") Integer id, Model model) {
-        Sucursal sucursal = sucursalService.obtenerSucursalPorId(id);
-        model.addAttribute("sucursal", sucursal);
+        model.addAttribute("sucursal", sucursalService.obtenerSucursalPorId(id));
         return "sucursales/actualizarSucursal";
     }
+    
 
     @GetMapping("/eliminarSucursal/{id}")
     public String eliminarSucursal(@PathVariable("id") Integer id) {

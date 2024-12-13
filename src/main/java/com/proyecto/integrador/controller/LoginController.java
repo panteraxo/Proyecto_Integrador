@@ -1,38 +1,45 @@
 package com.proyecto.integrador.controller;
 
+import com.proyecto.integrador.model.Enlace;
 import com.proyecto.integrador.model.Usuario;
 import com.proyecto.integrador.service.UsuarioService;
-import lombok.RequiredArgsConstructor;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.util.List;
 
 
 @Controller
+@SessionAttributes({"datosUsuario","ENLACES","CODIGOUSUARIO"})
 @RequestMapping
-@RequiredArgsConstructor
-@SessionAttributes("usuario")
 public class LoginController {
 
-    private final UsuarioService usuarioService;
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping(value = "/")
     public String mostrarLoginForm() {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String login (@RequestParam("nombreUsuario") String nombreUsuario,
-                         @RequestParam("contrasena") String contrasena,
-                         Model model){
-        Usuario usuario = usuarioService.obtenerUsuario(nombreUsuario, contrasena);
-        if(usuario == null){
-            model.addAttribute("mensaje","Usuario y/o Contaseña incorrectos");
-            return "login";
-        }
-        model.addAttribute("usuario", usuario);
+    @GetMapping("/bienvenida")
+    public String intranet(Authentication auth, Model model) {
+        String vLogin=auth.getName();
+        //invocar al metodo validarSesion
+        Usuario bean=usuarioService.validarSesion(vLogin);
+        //invocar al metodo enlacesDelUsuario
+        List<Enlace> lista=usuarioService.enlacesDelUsuario(bean.getRol().getCodigo());
+        //asignar valor a los atributos de tipo sesión
+        model.addAttribute("datosUsuario",bean.getApellido()+
+                " "+bean.getNombre());
+        model.addAttribute("ENLACES",lista);
+        model.addAttribute("CODIGOUSUARIO", bean.getCodigo());
         return "bienvenida";
     }
 
@@ -40,6 +47,6 @@ public class LoginController {
     @GetMapping("/logout")
     public String cerrarSesion(HttpSession session) {
         session.invalidate();
-        return "redirect:";
+        return "redirect:/";
     }
 }

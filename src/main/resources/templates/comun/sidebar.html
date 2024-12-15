@@ -8,7 +8,13 @@
         </div>
     </div>
     <ul class="sidebar-nav">
-        <li class="sidebar-item">
+        <li class="sidebar-item" th:each="bean:${session.ENLACES}">
+            <a th:href="${bean.ruta}"  class="sidebar-link">
+                <i th:class="${bean.icono}"></i>
+                <span th:text="${bean.nombre}"></span>
+            </a>
+        </li>
+       <!-- <li class="sidebar-item">
             <a th:href="@{/sucursales/listarSucursales}" class="sidebar-link">
                 <i class="lni lni-buildings-1"></i>
                 <span>Sucursales</span>
@@ -38,7 +44,7 @@
                 <span>Usuarios</span>
             </a>
         </li>
-        
+       -->
     </ul>
     <div class="sidebar-footer">
         <a th:href="@{/logout}" class="sidebar-link">

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Administración de Roles</title>
+
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="scripts/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <div th:replace="comun/sidebar.html"></div>
+        <div class="main">
+            <div class="my-2">
+                <form id="id_form" >
+                    <div class="container">
+
+                        <div class="row" style="margin-top: 1%">
+                            <div class="col-md-6">
+                                <label class="control-label" for="id_usuario">Usuario</label>
+                                <select id="id_usuario" name="idUsuario" class='form-control'>
+                                    <option value="-1"> [Seleccione]</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 1%">
+                            <div class="col-md-6">
+                                <label class="control-label" for="id_rol">Rol</label>
+                                <select id="id_rol" name="idRol" class='form-control'>
+                                    <option value="-1"> [Seleccione]</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="margin-top: 3%">
+                            <div class="col-md-12" align="center">
+                                <button type="button" class="btn btn-primary" id="id_btn_agregar">Agregar</button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 3%">
+                            <div class="col-md-12">
+                                <table id="id_table" class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 10%">C�digo</th>
+                                        <th style="width: 15%">Rol</th>
+                                        <th style="width: 20%">Usuario</th>
+                                        <th style="width: 15%">Eliminar</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        const hamBurger = document.querySelector(".toggle-btn");
+    
+    hamBurger.addEventListener("click", function () {
+      document.querySelector("#sidebar").classList.toggle("expand");
+    });
+    </script>
+    <script type="text/javascript">
+        <!-- Agregar aqu� -->
+
+        $.getJSON("listaRoles", {}, function(data){
+            $.each(data, function(index,item){
+                $("#id_rol").append("<option value="+item.idRol +">"+ item.nombre +"</option>");
+            });
+        });
+
+
+        $.getJSON("listaUsuario", {}, function(data){
+            $.each(data, function(i,item){
+                $("#id_usuario").append("<option value="+item.idUsuario +">"+ item.nombres +"</option>");
+            });
+        });
+
+
+
+        $("#id_usuario").change(function(){
+            var var_usuario = $("#id_usuario").val();
+            /*$.getJSON("listaOpcionPorRol", {"idRol":var_rol }, function(data){
+                agregarGrilla(data , var_rol);
+            });*/
+
+            $.getJSON("getUsuarioListObj", {"idUsuario":var_usuario }, function(data){
+                agregarGrillaObj(data, var_usuario);
+            });
+        });
+
+        $("#id_btn_agregar").click(function(){
+            $.ajax({
+                type: "POST",
+                url: "registraRol",
+                data: $('#id_form').serialize(),
+                success: function(data){
+                    //agregarGrilla(data.lista, data.rol);
+                    agregarGrillaObj(data.lista, data.usuario);
+                    mostrarMensaje(data.mensaje);
+                },
+                error: function(){
+                    mostrarMensaje(MSG_ERROR);
+                }
+            });
+        });
+
+        function agregarGrilla(lista, var_usuario){
+            $('#id_table').DataTable().clear();
+            $('#id_table').DataTable().destroy();
+            $('#id_table').DataTable({
+                data: lista,
+                searching: false,
+                ordering: true,
+                processing: true,
+                pageLength: 10,
+                lengthChange: false,
+                columns:[
+                    {data: "idRol"},
+                    {data: "nombres"},
+                    //{data: "idRol"},
+                    {data: "nombre"},
+                    {data: function(row, type, val, meta){
+                            var salida='<button type="button" style="width: 90px" class="btn btn-warning btn-sm" onclick="accionEliminar(\'' + var_usuario +'\',\'' + +row.idRol + '\')">Eliminar</button>';
+                            return salida;
+                        },className:'text-center'},
+                ]
+            });
+        }
+
+        function agregarGrillaObj(lista, var_usuario){
+            $('#id_table').DataTable().clear();
+            $('#id_table').DataTable().destroy();
+            $('#id_table').DataTable({
+                data: lista,
+                searching: false,
+                ordering: true,
+                processing: true,
+                pageLength: 10,
+                lengthChange: false,
+                columns:[
+                    {data: function(row, type, val, meta){
+                            var salida = row[0].idRol;
+                            return salida;
+                        }},
+                    {data: function(row, type, val, meta){
+                            var salida = row[1].nombres;
+                            return salida;
+                        }},
+                    {data: function(row, type, val, meta){
+                            var salida = row[0].nombre;
+                            return salida;
+                        }},
+                    {data: function(row, type, val, meta){
+                            var salida='<button type="button" style="width: 90px" class="btn btn-warning btn-sm" onclick="accionEliminar(\'' + var_usuario +'\',\'' + +row[0].idRol + '\')">Eliminar</button>';
+                            return salida;
+                        },className:'text-center'},
+                ]
+            });
+        }
+
+        function accionEliminar(idUsuario, idRol){
+            $.ajax({
+                type: "POST",
+                url: "eliminaRol",
+                data: {"idUsuario": idUsuario, "idRol": idRol},
+                success: function(data){
+                    //agregarGrilla(data.lista, data.rol);
+                    agregarGrillaObj(data.lista, data.usuario);
+                    mostrarMensaje(data.mensaje);
+                },
+                error: function(){
+                    mostrarMensaje(MSG_ERROR);
+                }
+            });
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,21 +1,41 @@
 package com.proyecto.integrador.service;
 
-import java.util.List;
 
-import com.proyecto.integrador.model.Enlace;
-import com.proyecto.integrador.model.Usuario;
+import com.proyecto.integrador.model.*;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface UsuarioService {
 
-    Usuario validarSesion(String vLogin);
-    List<Enlace> enlacesDelUsuario(int codRol);;
+	Usuario validarSesion(String vLogin);
+	
+	/*Usuario login(String login, String password);*/
 
-    /*Usuario obtenerUsuario(String nombreUsuario, String contrasena);*/
 
-    boolean obtenerUsuarioPorNombre(String username);
 
-    List<Usuario> listarUsuario();
-    void guardarUsuario(Usuario usuario);
-    Usuario obtenerUsuarioPorId(Integer id);
-    void eliminarUsuario(Integer id);
+	List<Opcion> traerEnlacesDeUsuario(int idUsuario);
+
+	List<Rol> traerRolesDeUsuario(int idUsuario);
+
+	Usuario buscaPorLogin(String login);
+	Usuario buscarPorCorreo(String correo);
+	Usuario registrarUsuario(Usuario user);
+
+	List<Usuario> BuscaPorNombreUsu(String usu);
+
+	// ROL DE USUARIO
+	List<Usuario> listaUsuario();
+
+	List<Rol> traerRolDeUsuario(int idUsuario);
+
+	Optional<UsuarioHasRol> buscaRol(UsuarioHasRolPK ojb);
+
+	UsuarioHasRol insertaRol(UsuarioHasRol ojb);
+
+	void eliminaRol(UsuarioHasRol obj);
+
+	List<Object> getObjUsuario(int idUsuario);
+
+	List<Rol> traerRolesPorDni(String dni);
 }

@@ -42,14 +42,14 @@ public class UsuarioController {
     
     @GetMapping("/listarUsuarios")
     public String verPaginaInicio(Model model) {
-        List<Usuario> listaUsuarios = usuarioService.listarUsuario();
+        List<Usuario> listaUsuarios = usuarioService.listaUsuario();
         model.addAttribute("listaUsuarios", listaUsuarios);
         return "usuarios/usuarios";
     }
 
     @GetMapping("/nuevoUsuario")
     public String nuevoUsuario(Model model) {
-        model.addAttribute("listaRoles", rolService.listarRol());
+        model.addAttribute("listaRoles", rolService.listaRol());
         model.addAttribute("usuario", new Usuario());
         
         return "usuarios/nuevoUsuario";
@@ -57,11 +57,11 @@ public class UsuarioController {
 
     @PostMapping("/guardarUsuario")
     public String guardarSucursal(@ModelAttribute("usuario") Usuario usuario) {
-        usuarioService.guardarUsuario(usuario);
+        usuarioService.registrarUsuario(usuario);
         return "redirect:/usuarios/listarUsuarios";
     }
 
-    @GetMapping("/actualizarUsuario/{id}")
+    /*@GetMapping("/actualizarUsuario/{id}")
     public String actualizarSucursal(@PathVariable("id") Integer id, Model model) {
         Usuario usuario = usuarioService.obtenerUsuarioPorId(id);
         model.addAttribute("usuario", usuario);
@@ -72,33 +72,34 @@ public class UsuarioController {
     public String eliminarUsuario(@PathVariable("id") Integer id) {
         usuarioService.eliminarUsuario(id);
         return "redirect:/usuarios/listarUsuarios";
-    }
-        @GetMapping("reporteUsuarios")
-        public void reporteVendedores(HttpServletResponse response) throws JRException, SQLException, IOException {
-            // Obtén la conexión JDBC desde el EntityManager
-            Session session = entityManager.unwrap(Session.class);
-            Connection conn = session.doReturningWork(connection -> connection.unwrap(Connection.class));
+    }*/
 
-            // Cargar el reporte .jasper
-            InputStream jasperStream = this.getClass().getResourceAsStream("/reportes/rptSucursales.jasper");
-            Map<String, Object> params = new HashMap<>();
+    @GetMapping("reporteUsuarios")
+    public void reporteVendedores(HttpServletResponse response) throws JRException, SQLException, IOException {
+        // Obtén la conexión JDBC desde el EntityManager
+        Session session = entityManager.unwrap(Session.class);
+        Connection conn = session.doReturningWork(connection -> connection.unwrap(Connection.class));
 
-            // Cargar el reporte
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+        // Cargar el reporte .jasper
+        InputStream jasperStream = this.getClass().getResourceAsStream("/reportes/rptSucursales.jasper");
+        Map<String, Object> params = new HashMap<>();
 
-            // Llenar el reporte con la conexión JDBC obtenida
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, conn);
+        // Cargar el reporte
+        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
 
-            // Configuración para devolver el reporte PDF en la respuesta HTTP
-            response.setContentType("application/x-pdf");
-            response.setHeader("Content-disposition", "inline; filename=sucursales_report.pdf");
+        // Llenar el reporte con la conexión JDBC obtenida
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, conn);
 
-            // Enviar el reporte como respuesta
-            final OutputStream outputStream = response.getOutputStream();
-            JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+        // Configuración para devolver el reporte PDF en la respuesta HTTP
+        response.setContentType("application/x-pdf");
+        response.setHeader("Content-disposition", "inline; filename=sucursales_report.pdf");
 
-            // Cerrar la conexión
-            conn.close();
+        // Enviar el reporte como respuesta
+        final OutputStream outputStream = response.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+
+        // Cerrar la conexión
+        conn.close();
 
     }
 }

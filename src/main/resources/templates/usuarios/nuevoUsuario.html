@@ -21,21 +21,22 @@
                 <div class="col-md-6">
                     <form action="#" th:action="@{/usuarios/guardarUsuario}"  th:object="${usuario}" method="post" >
                         <label for="nombre">Nombres</label>
-                        <input type="text" id="nombre" th:field="*{nombre}" placeholder="Nombres" class="form-control mb-4 col-4">
+                        <input type="text" id="nombre" th:field="*{nombres}" placeholder="Nombres" class="form-control mb-4 col-4">
         
                         <label for="apellido">Apellidos</label>
-                        <input type="text" id="apellido" th:field="*{apellido}" placeholder="Apellidos" class="form-control mb-4 col-4">
+                        <input type="text" id="apellido" th:field="*{apellidos}" placeholder="Apellidos" class="form-control mb-4 col-4">
         
                         <label for="correo">Correo usuario</label>
                         <input type="text" id="correo" th:field="*{login}" placeholder="Correo" class="form-control mb-4 col-4">
         
                         <label for="clave">Contraseña</label>
-                        <input type="text" id="clave" th:field="*{clave}" placeholder="clave" class="form-control mb-4 col-4">
-                        <label for="rol">Rol</label>
-                        <select id="rol" th:field="*{rol}" class="form-control mb-4 col-4" required>
+                        <input type="text" id="clave" th:field="*{password}" placeholder="clave" class="form-control mb-4 col-4">
+
+                        <!--<label for="rol">Rol</label>
+                        <select id="rol" th:field="*{idRol}" class="form-control mb-4 col-4" required>
                             <option value="">Seleccione Rol</option>
                             <option th:each="rol : ${listaRoles}" th:value="${rol.codigo}" th:text="${rol.descripcion}"></option>
-                        </select>
+                        </select>-->
                         <hr>
                         <button type="submit" class="btn btn-info col-2"> Guardar </button>
                         <button type="button" class="btn btn-secondary col-2" onclick="window.location.href='/usuarios/listarUsuarios'">Cancelar</button>

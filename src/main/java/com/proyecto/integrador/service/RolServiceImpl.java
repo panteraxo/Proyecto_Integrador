@@ -1,40 +1,64 @@
 package com.proyecto.integrador.service;
 
-
-import lombok.AllArgsConstructor;
+import com.proyecto.integrador.model.Opcion;
+import com.proyecto.integrador.model.Rol;
+import com.proyecto.integrador.model.RolHasOpcion;
+import com.proyecto.integrador.model.RolHasOpcionPK;
+import com.proyecto.integrador.repository.RolHasOpcionRepository;
+import com.proyecto.integrador.repository.RolRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.proyecto.integrador.model.Rol;
-import com.proyecto.integrador.repository.RolRepository;
-
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@AllArgsConstructor
-public class RolServiceImpl implements RolService {
-    private final RolRepository rolRepository;
-    @Override
-    public List<Rol> listarRol() {
-        return rolRepository.findAll();
-    }
+public class RolServiceImpl implements RolService{
 
-    @Override
-    public void guardarRol(Rol rol) {
-        rolRepository.save(rol);
-    }
+	@Autowired
+	private RolRepository rolRepository;
+	
+	@Autowired
+	private RolHasOpcionRepository rolHasOpcionRepository;
+	
+	@Override
+	public List<Rol> listaRol() {
+		return rolRepository.findAll();
+	}
 
-    @Override
-    public Rol obtenerRolPorId(Integer id) {
-        return rolRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("No se encontro el Rol con id: " + id));
-    }
+	@Override
+	public List<Opcion> traerOpcionDeRol(int id_rol) {
+		return rolRepository.traerOpcionDeRol(id_rol);
+	}
 
-    @Override
-    public void eliminarRol(Integer id) {
-        if(rolRepository.existsById(id)) {
-            rolRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("No se encontro el Rol con id: " + id);
-        }
-    }
+	@Override
+	public Optional<RolHasOpcion> buscaOpcion(RolHasOpcionPK ojb) {
+		 
+		return rolHasOpcionRepository.findById(ojb);
+	}
+
+	@Override
+	public RolHasOpcion insertaOpcion(RolHasOpcion ojb) {
+		 
+		return rolHasOpcionRepository.save(ojb);
+	}
+
+	@Override
+	public void eliminaOpcion(RolHasOpcion obj) {
+		rolHasOpcionRepository.delete(obj);
+		
+	}
+
+	@Override
+	public Rol login(Rol bean) {
+		 
+		return rolRepository.login(bean);
+	}
+	
+	@Override
+	public List<Object> getObjRol(int id_rol) {
+		 
+		return rolRepository.getObjRol(id_rol);
+	}
+
 }

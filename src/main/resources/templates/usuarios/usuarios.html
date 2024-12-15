@@ -18,8 +18,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
+                        <th>Nombres Completos</th>
                         <th>Usuario</th>
                         <th>Contraseña</th>
                         <th>Rol</th>
@@ -27,11 +26,12 @@
                     </thead>
                     <tbody>
                     <tr  th:each=" usuario : ${listaUsuarios}"  >
-                        <td  th:text="${usuario.nombre}" ></td>
-                        <td  th:text="${usuario.apellido}" ></td>
+                        <td  th:text="${usuario.nombreCompleto}" ></td>
                         <td  th:text="${usuario.login}" ></td>
-                        <td  th:text="${usuario.clave}" ></td>
-                        <td th:text="${usuario.rol != null ? usuario.rol.descripcion : 'Sin rol'}"></td>
+                        <td  th:text="${usuario.password}" ></td>
+
+                        <td  th:text="${usuario.usuarioHasRol.get(0).rol.nombre}" ></td>
+                       <!-- <td th:text="${usuario.rol != null ? usuario.rol.descripcion : 'Sin rol'}"></td>-->
                         
                         
                     </tr>
